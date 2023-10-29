@@ -46,8 +46,8 @@ public class priority
         for(int i=0;i<n;i++)
         {
             wt[i]=ta[i-1];
-            awt+=wt[i];
             ta[i]=wt[i]+bt[i];
+            awt+=wt[i];
             ata+=ta[i];
         }
         System.out.println("\n Process  Priority  Burst time  Wait time  Turnaround time  ");
