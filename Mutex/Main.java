@@ -7,8 +7,10 @@ public class Main {
     static int readCount = 0;
     static String message = "Hello";
     static Scanner SC = new Scanner(System.in);
-    static class Reader implements Runnable {
-        public void run() {
+    static class Reader implements Runnable 
+    {
+        public void run() 
+        {
             try {
                 //Acquire Section
                 mutex.acquire();
@@ -28,7 +30,8 @@ public class Main {
                     wrt.release();
                 }
                 mutex.release();
-            } catch (InterruptedException e) {
+            } 
+            catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -51,6 +54,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Reader read = new Reader();
         Writer write = new Writer();
+
         Thread r1 = new Thread(read);
         r1.setName("Reader1");
         Thread r2 = new Thread(read);
@@ -63,6 +67,7 @@ public class Main {
         w2.setName("Writer2");
         Thread w3 = new Thread(write);
         w3.setName("Writer3");
+        
         w1.start();
         r1.start();
         w2.start();

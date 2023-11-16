@@ -1,6 +1,6 @@
 import java.util.concurrent.Semaphore;
 
-public class Main2
+public class Main3
 {
     static Semaphore mutex = new Semaphore(1);
     static Semaphore wrt = new Semaphore(1);
@@ -16,16 +16,13 @@ public class Main2
             {
                 mutex.acquire();
                 readCount++;
-                if(readCount == 1)
+                if(readCount==1)
                     wrt.acquire();
                 mutex.release();
-                
-                System.out.println("Thread "+ Thread.currentThread().getName() + " is Reading : " + message);
+                System.out.println("Thread " + Thread.currentThread().getName() + " is Reading : " + message);
                 Thread.sleep(1500);
-                System.out.println("Thread"+ Thread.currentThread().getName()+ " has Finished Reading !");
-
+                System.out.println("Thread " + Thread.currentThread().getName() + " is Finished Reading !");
                 mutex.acquire();
-                readCount--;
                 if(readCount==0)
                     wrt.release();
                 mutex.release();
@@ -43,12 +40,12 @@ public class Main2
         {
             try
             {
-                message = "Good Morning !";
-                wrt.acquire();
-                System.out.println("Thread "+ Thread.currentThread().getName() + "is Writing : " + message);
+                message = "Good Morning";
+                mutex.acquire();
+                System.out.println("Thread " + Thread.currentThread().getName() + " is Writing : " + message);
                 Thread.sleep(1500);
-                System.out.println("Thread "+ Thread.currentThread().getName() + "is Finished Writing !");
-                wrt.release();
+                System.out.println("Thread " + Thread.currentThread().getName() + " is Finished Writing !");
+                mutex.release();
             }
             catch(InterruptedException e)
             {
@@ -59,22 +56,22 @@ public class Main2
 
     public static void main(String args[]) throws Exception
     {
-        Reader read = new Reader();
         Writer write = new Writer();
-
-        Thread r1 = new Thread(read);
-        r1.setName("Reader1");
-        Thread r2 = new Thread(read);
-        r2.setName("Reader2");
-        Thread r3 = new Thread(read);
-        r3.setName("Reader3");
+        Reader read = new Reader();
 
         Thread w1 = new Thread(write);
-        w1.setName("Writer1");
+        w1.setName("Writer 1");
         Thread w2 = new Thread(write);
-        w2.setName("Writer2");
+        w2.setName("Writer 2");
         Thread w3 = new Thread(write);
-        w3.setName("Writer3");
+        w3.setName("Writer 3");
+
+        Thread r1 = new Thread(read);
+        r1.setName("Reader 1");
+        Thread r2 = new Thread(read);
+        r2.setName("Reader 2");
+        Thread r3 = new Thread(read);
+        r3.setName("Reader 3");
 
         w1.start();
         r1.start();
@@ -83,5 +80,4 @@ public class Main2
         w3.start();
         r3.start();
     }
-
 }

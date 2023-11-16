@@ -34,11 +34,14 @@ public class roundrobin
                 if(rem_bt[i]>qt)
                     rem_bt[i]= rem_bt[i] - qt;
                 else
-                if(rem_bt[i]>=0)
                 {
-                    temp = rem_bt[i];
-                    rem_bt[i] = 0;
+                    if(rem_bt[i]>=0)
+                    {
+                        temp = rem_bt[i];
+                        rem_bt[i] = 0;
+                    }
                 }
+
                 sq = sq + temp;
                 tat[i] = sq;
             }
